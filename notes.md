@@ -90,3 +90,33 @@ $ npm i -g @project-serum/anchor-cli
 ```
 $ anchor --version  // verify install was successful
 ```
+
+## Build Notes
+
+1. How to use Phantom Wallet Address with Solana CLI
+
+```
+// First make sure your CLI and Wallet are both configured to run on the `devnet`
+$ solana config set --url devnet  // for shell, wallet is configured in Phantom UI Settings > Change Network
+$ solana-keygen recover 'prompt:?key=0/0' --outfile ~/.config/solana/id.json
+> this will prompt you to input your seed phrase and passphrase (if configured)
+
+// cmds to test connection bw shell and wallet
+$ solana balance 
+$ solana-keygen pubkey  // your wallet address
+$ solana-keygen verify <wallet_address>
+```
+
+2. Localhost Setup
+
+```
+// In Phantom UI, Settings > Change Network > Localhost
+$ solana config set --url localhost
+
+// Next, start local Solana Node for testing
+// This will create a dir in your project called `test-ledger`
+$ solana-test-validator
+
+// Test by doing an airdrop to your wallet
+$ solana airdrop 100
+```
