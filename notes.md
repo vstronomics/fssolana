@@ -107,7 +107,7 @@ $ solana-keygen pubkey  // your wallet address
 $ solana-keygen verify <wallet_address>
 ```
 
-2. Localhost Setup
+2. Solana Tool Suite - Localhost Setup
 
 ```
 // In Phantom UI, Settings > Change Network > Localhost
@@ -120,3 +120,38 @@ $ solana-test-validator
 // Test by doing an airdrop to your wallet
 $ solana airdrop 100
 ```
+
+3. Anchor Concepts and Framework Structure
+* `app` dir > this is where frontend code lives
+* `programs` dir > this is where Rust code lives
+* `test` dir > frontend tests go here
+* `migrations` dir > basic deploy script
+* `Provider` > refers to an abstraction which represents a client's connection to the Solana Network
+    * A valid connection will consist of: a `Connection` to a fullnode JSON RPC endpoint, a `Wallet`, and a `preflight commitment`.
+* `program` > an abstraction made up of a `Provider`, `IDL`, and `programID` combination
+    * enables us to make RPC calls against the Anchor program
+* `account` > There is no persisted state within a Solana program. All state-related data is attached to an `account`. This means all data is referenced from external sources.
+
+4. Anchor's eDSL (Embedded Domain Specific Language)
+* a *domain specific language* can be attributed as a tiny programming language used for a specific task. Things like Python, Golang, and C are considered to be *general-purpose languages*.
+* Examples of DSLs
+    * CSS > DSL used for styling-related rules HTML properties on websites
+    * SQL > DSL for querying databases
+    * Regular Expressions > used to specify patterns to match strings
+
+5. Anchor Commands
+
+```
+// Compile your project and create and executable
+// This will create a new dir called `target`
+$ anchor build
+```
+
+```
+// run tests
+$ anchor test
+```
+
+6. `target` directory
+* contains an IDL so other programs/tests can run your program via RPC
+* contains a `deploy` dir; this dir contains the binary you'll use to deploy your program on the Solana network via `$ solana program deploy <abs_path_to_sol_binary>`
